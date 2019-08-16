@@ -36,6 +36,8 @@
 	</dependencies>
 
 	<build>
+	
+	<finalName>nGage-Discount-System</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
