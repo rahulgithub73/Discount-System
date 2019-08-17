@@ -9,21 +9,35 @@ as a discount).
 
 
 
-Requirements
+## Requirements
+
 For building and running the application you need:
 
-JDK 1.8
-Maven 3
-Running the application locally:
+- [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Maven 3](https://maven.apache.org)
+
+## Running the application locally:
 
 Way1: Import as maven project on your IDE and run a Spring Boot application using main method in DiscountApplication class.
 
-Way2: Used to Spring Boot Maven plugin like this command  
-      mvn spring-boot:run 
+Way2: Used to Spring Boot Maven plugin like this command 
 
+```shell
+mvn spring-boot:run
+```
+
+### Build an executable JAR
 Way3: Using maven command to create executable JAR and run the JAR file with:
-       3.1 mvn clean package
-       3.2 java -jar target/nGage-Discount-System.jar
+
+```
+mvn clean package
+```
+Then you can run the JAR file with:
+```
+java -jar target/nGage-Discount-System.jar
+```	   
+	   
+	   
 
 
 
