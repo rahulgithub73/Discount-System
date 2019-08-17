@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DiscountServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">nGage-Discount-System</a> &gt; <a href="index.source.html" class="el_package">com.billing.discount.service.impl</a> &gt; <span class="el_source">DiscountServiceImpl.java</span></div><h1>DiscountServiceImpl.java</h1><pre class="source lang-java linenums">package com.billing.discount.service.impl;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.billing.discount.constant.CustomerType;
+import com.billing.discount.constant.DiscountConstant;
+import com.billing.discount.constant.ItemCategory;
+import com.billing.discount.entity.Customer;
+import com.billing.discount.entity.Item;
+import com.billing.discount.service.DiscountService;
+
+/**
+ * 
+ * @author Rahul
+ *
+ */
+<span class="fc" id="L19">public class DiscountServiceImpl implements DiscountService {</span>
+
+	@Override
+	public double discountApplyOnUserType(Customer customer, List&lt;Item&gt; items) {
+
+<span class="fc" id="L24">		double totalDiscountedAmount = 0;</span>
+<span class="fc" id="L25">		double totalAmount = this.getTotalAmountItems(items);</span>
+<span class="fc" id="L26">		double discountPercentage = this.getDiscountByCustomerType(customer);</span>
+
+<span class="fc" id="L28">		Double groceriesTotalAmount = getGroceriedItemCost(items);</span>
+<span class="fc" id="L29">		totalDiscountedAmount = (totalAmount - groceriesTotalAmount);</span>
+<span class="fc" id="L30">		totalDiscountedAmount = ((totalDiscountedAmount * discountPercentage) / 100);</span>
+
+<span class="fc" id="L32">		return totalAmount - totalDiscountedAmount;</span>
+		}
+
+	@Override
+	public double getDiscountOnTotalAmount(double totalAmount) {
+<span class="fc" id="L37">		return Math.floor(totalAmount / 100) * DiscountConstant.DISCOUNT_PER_HUNDRED;</span>
+	}
+
+	@Override
+	public double getTotalAmountItems(List&lt;Item&gt; items) {
+<span class="fc" id="L42">		return items.stream().map(p -&gt; p.getItemCost()).collect(Collectors.summingDouble(Double::doubleValue));</span>
+	}
+
+	@Override
+	public double getGroceriedItemCost(List&lt;Item&gt; items) {
+
+<span class="fc" id="L48">		return items.stream()</span>
+<span class="pc bpc" id="L49" title="1 of 4 branches missed.">				.filter(item -&gt; item.getCategory() != null &amp;&amp; item.getCategory().equals(ItemCategory.GROCERIES))</span>
+<span class="fc" id="L50">				.map(p -&gt; p.getItemCost()).collect(Collectors.summingDouble(Double::doubleValue));</span>
+	}
+
+	@Override
+	public boolean isDiscountOnMembership(Customer customer) {
+<span class="fc" id="L55">		LocalDate date = LocalDate.now().minusYears(DiscountConstant.CUSTOMER_MEMBERSHIP_TIME_PERIOD_IN_YRS);</span>
+<span class="pc bpc" id="L56" title="1 of 4 branches missed.">		return customer.getEnrollmentDate().isBefore(date) &amp;&amp; (CustomerType.CUSTOMER == customer.getCustomerType());</span>
+	}
+
+	@Override
+	public double getDiscountByCustomerType(Customer customer) {
+<span class="fc" id="L61">		CustomerType customerType = customer.getCustomerType();</span>
+<span class="fc bfc" id="L62" title="All 4 branches covered.">		if (customerType == CustomerType.EMPLOYEE || customerType == CustomerType.AFFILIATE</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">				|| this.isDiscountOnMembership(customer)) {</span>
+<span class="fc" id="L64">			return customerType.getDiscountPercentage();</span>
+		}
+<span class="fc" id="L66">		return 0;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

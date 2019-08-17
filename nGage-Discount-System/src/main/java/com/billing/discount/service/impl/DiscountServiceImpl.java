@@ -29,10 +29,8 @@ public class DiscountServiceImpl implements DiscountService {
 		totalDiscountedAmount = (totalAmount - groceriesTotalAmount);
 		totalDiscountedAmount = ((totalDiscountedAmount * discountPercentage) / 100);
 
-		double totalAmountAfterDiscount = totalAmount - totalDiscountedAmount;
-		return totalAmountAfterDiscount;
-
-	}
+		return totalAmount - totalDiscountedAmount;
+		}
 
 	@Override
 	public double getDiscountOnTotalAmount(double totalAmount) {
