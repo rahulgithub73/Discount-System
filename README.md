@@ -36,6 +36,24 @@ Then you can run the JAR file with:
 ```
 java -jar target/nGage-Discount-System.jar
 ```	   
+
+## UML Digram
+
+- [UML Digram] https://drive.google.com/open?id=1I8hQf_iakVVMxM2ZWnqSd7ZAgGqorUBy
+
+
+## Static code analysis and code coverage 
+
+We used JaCoCo Maven plugin for generating code coverage reports for Java projects.
+
+We can see the output go to target directory and open index.html from jacoco-ut folder in browser.
+
+[ JaCoCo Maven plugin](https://www.jacoco.org/jacoco/trunk/doc/maven.html) 
+
+- [code coverage report in HTML] https://drive.google.com/open?id=1SH9ISti5WqHh4XPkM6WWnTCF3uwk26G0
+- [code coverage report in CSV] https://drive.google.com/open?id=15ZqSY-auo9Clr7rPeaIh8b3udgPMHIid
+
+
 	   
 	   
 
